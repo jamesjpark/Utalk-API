@@ -5,10 +5,7 @@ from django.db import models
 class User(AbstractUser):
     first_name = models.CharField(max_length=20, blank=False, null=False)
     last_name = models.CharField(max_length=20, blank=False, null=False)
-    phone_number = models.CharField(max_length=20, blank=False, null=False)
-    weight = models.IntegerField(blank=True, null=True, default=0)
-    height = models.IntegerField(blank=True, null=True, default=0)
-    body_part = models.CharField(max_length=20, blank=True, null=True, default='')
+    email = models.EmailField(unique=True, blank=False, null=False)
     
     SEX_CHOICES = (
         ('M' , 'Male'),
