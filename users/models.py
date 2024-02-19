@@ -12,3 +12,4 @@ class User(AbstractUser):
         ('F', 'Female')
     )
     sex = models.CharField(max_length=1, choices=SEX_CHOICES)
+    
