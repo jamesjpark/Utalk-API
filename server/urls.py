@@ -26,4 +26,6 @@ urlpatterns = [
     path('comments/<int:pk>/', post_views.CommentDetailAPIView.as_view(), name='comment-detail'),
     path('admin/', admin.site.urls),
     path('register/', users_views.UserRegistrationAPIView.as_view(), name='register'),
+    path('login/', users_views.UserLoginAPIView.as_view(), name='login'),
+    path('logout/', users_views.UserLogoutAPIView.as_view(), name='logout'),
 ]
