@@ -18,3 +18,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             email=validated_data.get('email'),
         )
         return user
+    
+class UserLoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
