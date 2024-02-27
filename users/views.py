@@ -5,8 +5,9 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import UserRegistrationSerializer, UserLoginSerializer
-from django.contrib.auth import authenticate
+from rest_framework.authtoken.serializers import AuthTokenSerializer
+from .serializers import UserRegistrationSerializer
+from django.contrib.auth import authenticate, login, logout
 from rest_framework.authtoken.models import Token
 
 class UserRegistrationAPIView(APIView):
@@ -19,14 +20,12 @@ class UserRegistrationAPIView(APIView):
     
 class UserLoginAPIView(APIView):
     def post(self, request):
-        serializer = UserLoginSerializer(data=request.data)
+        serializer = AuthTokenSerializer(data=request.data)
         if serializer.is_valid():
-            user = authenticate(
-                username=serializer.validated_data['username'],
-                password=serializer.validated_data['password']
-            )
+            user = serializer.validated_data['user']
             if user:
                 # Assuming you are using token authentication
+                login(request, user)
                 token, created = Token.objects.get_or_create(user=user)
                 return Response({"token": token.key}, status=status.HTTP_200_OK)
             else:
@@ -34,7 +33,7 @@ class UserLoginAPIView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class UserLogoutAPIView(APIView):
-    def post(self, request):
+    def get(self, request):
         try:
             request.user.auth_token.delete()
             return Response({"message": "Successfully logged out."}, status=status.HTTP_200_OK)
