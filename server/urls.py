@@ -28,5 +28,5 @@ urlpatterns = [
     path('register/', users_views.UserRegistrationAPIView.as_view(), name='register'),
     path('login/', users_views.UserLoginAPIView.as_view(), name='login'),
     path('logout/', users_views.UserLogoutAPIView.as_view(), name='logout'),
-    path('likes/<int:post_id>/', post_views.LikePostAPIView.as_view(), name='like-post'),
+    path('likes/<int:post_id>/', post_views.LikePostAPIView.as_view(), name='post-likes')
 ]
