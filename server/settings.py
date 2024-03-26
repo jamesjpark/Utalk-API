@@ -82,12 +82,8 @@ load_dotenv()
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': os.getenv('DJANGO_DATABASE_PASSWORD'),
-        'HOST': os.getenv('DJANGO_DATABASE_HOST_WRITER'),  # Or an IP Address that your DB is hosted on
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
